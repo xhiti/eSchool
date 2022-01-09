@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=0" name="viewport">
+    <title>eSchool | Students</title>
+    <link href="{% static 'assets/img/favicon.png' %}" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+          rel="stylesheet">
+    <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/datatables/datatables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <style>
+        .form-group {
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a class="logo" href="{% url 'index' %}">
+                <img alt="Logo" src="{% static 'assets/img/logo.png' %}">
+            </a>
+            <a class="logo logo-small" href="{% url 'index' %}">
+                <img alt="Logo" height="30" src="{% static 'assets/img/logo-small.png' %}" width="30">
+            </a>
+        </div>
+        <a href="javascript:void(0);" id="toggle_btn">
+            <i class="fas fa-align-left"></i>
+        </a>
+        <div class="top-nav-search">
+            <form>
+                <input class="form-control" placeholder="Kërko" type="text">
+                <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown noti-dropdown">
+                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-pill">3</span>
+                </a>
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <span class="notification-title">Njoftime</span>
+                        <a class="clear-noti" href="javascript:void(0)"> Fshi të gjitha </a>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">Shiko të gjitha njoftimet</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown has-arrow">
+                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="#">
+                   <span class="user-img">
+                        <img alt="Ryan Taylor" class="rounded-circle"
+                             src="{% static 'assets/img/logo/dk-photography-logo.png' %}"
+                             width="31">
+                   </span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img alt="User Image" class="avatar-img rounded-circle"
+                                 src="{% static 'assets/img/logo/dk-photography-logo.png' %}">
+                        </div>
+                        <div class="user-text">
+                            <h6>Drita Kurti</h6>
+                            <p class="text-muted mb-0">Administrator</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'index' %}">Profili</a>
+                    <a class="dropdown-item" href="{% url 'index' %}">Mesazhe</a>
+                    <a class="dropdown-item" href="{% url 'index' %}">Dil</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div class="sidebar-menu" id="sidebar-menu">
+                <ul>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Menuja Kryesore</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'index' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Kreu</span>
+                        </a>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-school"></i>
+                            <span>Klasat</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'classes' %}">Lista e klasave</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-class' %}">Shto klasë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Klasa Kujdestari</span>
+                    </li>
+                    <li class="submenu active">
+                        <a href="#">
+                            <i class="fas fa-book-reader"></i>
+                            <span>Klasa Kujdestari</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'students' %}" class="active">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade' %}">Shto notë</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'parents' %}">Lista e prindërve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-parent' %}">Shto prind</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'subjects' %}">Lista e lëndëve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-subject' %}">Shto lëndë</a>
+                            </li>
+{#                            <li>#}
+{#                                <a href="{% url 'statistics' %}">Statistika</a>#}
+{#                            </li>#}
+                        </ul>
+                    </li>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Gjuhë Shqipe</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #fd7e14"></i>
+                            <span>Klasa 8 A</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-a' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-a' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-a' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #0dcaf0"></i>
+                            <span>Klasa 8 D</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-d' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-d' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-d' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #d63384"></i>
+                            <span>Klasa 8 E</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-e' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-e' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-e' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #198754"></i>
+                            <span>Klasa 9 E</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-9-e' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-9-e' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-9-e' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Detajet e nxënësit</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'students' %}">Nxënësit</a></li>
+                            <li class="breadcrumb-item active">Detajet e nxënësit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-header">
+                        <div class="row align-items-center">
+                            <div class="col-auto profile-image">
+                                <a href="#">
+                                    <img class="rounded-circle" alt="User Image"
+                                         src="{% static 'assets/img/logo/shkolla-azem-hajdari.jpg' %}">
+                                </a>
+                            </div>
+                            <div class="col ms-md-n2 profile-user-info">
+                                <h4 class="user-name mb-0">{{ current_student.get_full_name }}</h4>
+                                <h6 class="text-muted"></h6>{{ current_student.nid }}
+                                <div class="user-Location"><i
+                                        class="fas fa-map-marker-alt"></i> {{ current_student.class_id.title }}
+                                </div>
+                                <div class="about-text">{{ current_student.amze_number }}</div>
+                            </div>
+                            <div class="col-auto profile-btn">
+                                <a href="{% url 'students' %}" class="btn btn-primary">
+                                    <i class="fa fa-window-close"></i> Dil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                            {% for period in periods %}
+                                <li class="nav-item" style="font-weight: bold">
+                                    <a class="nav-link{% if period.code == 'PER-1' %} active {% endif %}"
+                                       href="#bottom-justified-tab-period-{{ period.code }}"
+                                       data-bs-toggle="tab">{{ period.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for period in periods %}
+                                <div class="tab-pane show{% if period.code == 'PER-1' %} active {% endif %}"
+                                     id="bottom-justified-tab-period-{{ period.code }}">
+                                    <div class="card card-table">
+                                        <form action="{% url 'add-grade-8-a' %}" method="POST">
+                                            <div class="card-body">
+                                                {% if period.index == 1 %}
+                                                    <h5 class="card-title d-flex justify-content-between">
+                                                        <span style="font-size: 16px"><i class="fa fa-user"></i> 1. Nxënësi si individ dhe pjesëtar komuniteti</span><br>
+                                                    </h5>
+                                                    <div class="row">
+                                                        {% include 'includes/alert.html' %}
+                                                        <div class="table-responsive">
+                                                            <table class="table table-nowrap mb-0">
+                                                                <thead>
+                                                                <tr class="bg-light">
+                                                                    <th>#</th>
+                                                                    <th>Karakteristika</th>
+                                                                    <th class="text-center">Vlerësimi</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="1"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Tregon interes për të nxënë."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="2"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Dëgjon me vëmendje dhe jep mendimin e tij."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="3"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Kryen detyrat e shtëpisë."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="4"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Realizon në mënyrë të pavarur detyrat e tij/saj."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="5"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Merr dhe mban përgjegjësi."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="6"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Ndihet mirë në shkollë."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="7"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Respekton të tjerët dhe rregullat në mjedisin e klasës dhe të shkollës."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="8"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Bashkëpunon me nxënësit, ndihmon të tjerët dhe kërkon ndihmë."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="9"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Është i ndjeshëm ndaj ndjenjave të të tjerëve."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="10"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Kontrollon dhe shpreh emocionet e veta sipas rastit."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 80px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="11"
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 700px!important;">
+                                                                        <div class="form-group">
+                                                                            <input class="form-control" type="text"
+                                                                                   value="Komunikon dhe shpreh mendimin vetjak sipas situatave të rastit."
+                                                                                   name="vlv_period_1"
+                                                                                   readonly
+                                                                            >
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center" style="font-size: 25px">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control form-select"
+                                                                                    name="student_id" required>
+                                                                                <option value="0">Zgjidh vlerësimin
+                                                                                </option>
+                                                                                <option value="1">Rrallë</option>
+                                                                                <option value="2">Herë - herë</option>
+                                                                                <option value="3">Shpesh</option>
+                                                                                <option value="4">Gjithmonë</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                        <h5 class="card-title d-flex justify-content-between">
+                                                            <span style="font-size: 16px"><i class="fa fa-user-graduate"></i> 2. Progresi i nxënësit sipas lëndëve.</span><br>
+                                                        </h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-nowrap mb-0">
+                                                                    <thead>
+                                                                    <tr class="bg-light">
+                                                                        <th>#</th>
+                                                                        <th>Lënda</th>
+                                                                        <th class="text-center">VLV</th>
+                                                                        <th class="text-center">VLP</th>
+                                                                        <th class="text-center">VLT</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="1"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Gjuhë shqipe"
+                                                                                       name="language"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="language_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="language_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="language_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="2"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Anglisht"
+                                                                                       name="english"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="english_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="english_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="english_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="3"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Matematikë"
+                                                                                       name="math"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="math_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="math_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="math_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="4"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Fizikë"
+                                                                                       name="physic"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="physic_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="physic_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="physic_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="5"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Kimi"
+                                                                                       name="chemistry"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="chemistry_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="chemistry_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="chemistry_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 80px">
+                                                                             <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="6"
+                                                                                       name="vlv_period_1"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 500px;">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       value="Biologji"
+                                                                                       name="biology"
+                                                                                       readonly
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLV..."
+                                                                                       name="biology_vlv_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLP..."
+                                                                                       name="biology_vlp_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="text"
+                                                                                       placeholder="VLT..."
+                                                                                       name="biology_vlt_1"
+                                                                                >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </form>
+                                                {% endif %}
+                                    </div>
+                                </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+</html>

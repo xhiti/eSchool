@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=0" name="viewport">
+    <title>eSchool | Classes</title>
+    <link href="{% static 'assets/img/favicon.png' %}" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+          rel="stylesheet">
+    <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a class="logo" href="{% url 'index' %}">
+                <img alt="Logo" src="{% static 'assets/img/logo.png' %}">
+            </a>
+            <a class="logo logo-small" href="{% url 'index' %}">
+                <img alt="Logo" height="30" src="{% static 'assets/img/logo-small.png' %}" width="30">
+            </a>
+        </div>
+        <a href="javascript:void(0);" id="toggle_btn">
+            <i class="fas fa-align-left"></i>
+        </a>
+        <div class="top-nav-search">
+            <form>
+                <input class="form-control" placeholder="Kërko" type="text">
+                <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown noti-dropdown">
+                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-pill">3</span>
+                </a>
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <span class="notification-title">Njoftime</span>
+                        <a class="clear-noti" href="javascript:void(0)"> Fshi të gjitha </a>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">Shiko të gjitha njoftimet</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown has-arrow">
+                <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="#">
+                   <span class="user-img">
+                        <img alt="Ryan Taylor" class="rounded-circle" src="{% static 'assets/img/logo/dk-photography-logo.png' %}"
+                             width="31">
+                   </span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img alt="User Image" class="avatar-img rounded-circle" src="{% static 'assets/img/logo/dk-photography-logo.png' %}">
+                        </div>
+                        <div class="user-text">
+                            <h6>Drita Kurti</h6>
+                            <p class="text-muted mb-0">Administrator</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="{% url 'index' %}">Profili</a>
+                    <a class="dropdown-item" href="{% url 'index' %}">Mesazhe</a>
+                    <a class="dropdown-item" href="{% url 'index' %}">Dil</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div class="sidebar-menu" id="sidebar-menu">
+                <ul>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Menuja Kryesore</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'index' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Kreu</span>
+                        </a>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-school"></i>
+                            <span>Klasat</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'classes' %}">Lista e klasave</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-class' %}">Shto klasë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Klasa Kujdestari</span>
+                    </li>
+                    <li class="submenu active">
+                        <a href="#">
+                            <i class="fas fa-book-reader"></i>
+                            <span>Klasa Kujdestari</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'students' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade' %}">Shto notë</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'parents' %}">Lista e prindërve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-parent' %}">Shto prind</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'subjects' %}">Lista e lëndëve</a>
+                            </li>
+                            <li>
+                                <a class="active" href="{% url 'add-subject' %}">Shto lëndë</a>
+                            </li>
+{#                            <li>#}
+{#                                <a href="{% url 'statistics' %}">Statistika</a>#}
+{#                            </li>#}
+                        </ul>
+                    </li>
+                    <li class="menu-title">
+                        <span style="text-transform: uppercase">Gjuhë Shqipe</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #fd7e14"></i>
+                            <span>Klasa 8 A</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-a' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-a' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-a' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #0dcaf0"></i>
+                            <span>Klasa 8 D</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-d' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-d' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-d' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #d63384"></i>
+                            <span>Klasa 8 E</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-8-e' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-8-e' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-8-e' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="fas fa-address-book" style="color: #198754"></i>
+                            <span>Klasa 9 E</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'class-9-e' %}">Lista e nxënësve</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-student-9-e' %}">Shto nxënës</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'add-grade-9-e' %}">Shto notë</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Shto Lëndë</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="classes.html">Klasa Kujdestari</a></li>
+                            <li class="breadcrumb-item active">Shto Lëndë</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <form action="{% url 'add-subject' %}" method="POST">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="form-title"><span>Detajet e lëndës</span></h5>
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Emërtimi</label>
+                                            <input class="form-control" placeholder="Emërtimi i lëndës..." type="text" name="title">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Përshkrimi</label>
+                                            <input class="form-control" placeholder="Përshkrimi i lëndës..." type="text" name="description">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Index-i</label>
+                                            <input class="form-control" placeholder="Index-i i lëndës..." type="text" name="index">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary" type="submit" name="add_subject"><i class="fas fa-check"></i> Shto lëndë</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Të gjitha të drejtat të rezervuara © 2020 eSchool.</p>
+        </footer>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+</html>
